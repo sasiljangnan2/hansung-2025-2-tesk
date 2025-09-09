@@ -25,7 +25,7 @@ void insert_max_heap(HeapType* h, element item) {
 	}
 	h->heap[i] = item; // 새로운 노드를 삽입
 }
-// 삭제 함수
+// 삭제 함수3
 element delete_max_heap(HeapType* h) {
 	int parent, child;
 	element item, temp;
@@ -46,7 +46,7 @@ element delete_max_heap(HeapType* h) {
 	h->heap[parent] = temp;
 	return item;
 }
-//초기화
+//초기화345
 void init(HeapType* h) {
 	h->heap_size = 0;
 }
