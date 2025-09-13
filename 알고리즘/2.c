@@ -26,7 +26,7 @@ void random(int* n) // 난수 생성 함수, 포인터 변수이므로 리턴값
 {
 	srand((unsigned int)time(NULL)); // 무작위 시드
 	printf("생성된 난수: ");
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		n[i] = rand() % 100 + 1;
 		printf("%d ", n[i]);
@@ -90,7 +90,7 @@ int main(void)
 			}
 			else
 			{
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					e.key = n[i];
 					insert_max_heap(heap, e); // 히프에 삽입
