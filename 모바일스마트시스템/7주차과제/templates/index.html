@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>전화번호 관리</title>
+    <link href="/static/mystyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h3>전화번호 관리</h3>
+{% print(msg) %}
+<hr>
+<form action="/store" method="get">
+    이름 <input type="text" name="name">
+    전화번호 <input type="text" name="tel">
+    <input type="submit" value="저장">
+</form>
+<hr>
+</body>
+</html>
