@@ -1,4 +1,3 @@
-import numpy as np
 dict = {} # 빈 딕셔너리 생성
 file = open("bookwriter.txt", "r") # 읽기 모드로 열기
 for line in file.readlines(): # 한 줄씩 읽기

@@ -9,10 +9,31 @@
 <h3>전화번호 관리</h3>
 {% print(msg) %}
 <hr>
-<form action="/store" method="get">
+<h3>전화번호 저장</h3>
+<p>이름과 전화번호 입력</p>
+    <form action="/store" method="get">
     이름 <input type="text" name="name">
     전화번호 <input type="text" name="tel">
-    <input type="submit" value="저장">
+<input type="submit" value="저장">
+</form>
+<hr>
+</body>
+<body>
+<h3>전화번호 검색</h3>
+<p>전화번호 검색</p>
+<hr>
+    <form action="/search" method="get">
+    이름 <input type="text" name="name">
+<input type="submit" value="검색">
+</form>
+<hr>
+</body>
+<body>
+<h3>전화번호 전체 출력</h3>
+<p>저장된 전화번호 전체 출력</p>
+<hr>
+    <form action="/view" method="get">
+<input type="submit" value="전체 출력">
 </form>
 <hr>
 </body>
