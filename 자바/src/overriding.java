@@ -20,6 +20,7 @@ class line extends shape
 
 class circle extends shape
 {
+    @Override
     public void draw()
     {
         System.out.println("circle");
@@ -41,10 +42,10 @@ static void paint(shape p)
 }
 public static void main(String[] args) {
     line line = new line();
-    paint(line);
-    paint(new shape());
-    paint(new rectt());
-    paint(new circle());
-    paint(new line());
+    circle circle = new circle();
+    rectt rectt = new rectt();
+    line.draw();
+    circle.draw();
+    rectt.draw();
 }
 }
