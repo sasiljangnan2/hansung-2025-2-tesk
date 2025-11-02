@@ -4,14 +4,11 @@ import io
 import cv2
 import paho.mqtt.client as mqtt
 
-
+broker_ip = "localhost"
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.connect(broker_ip, 1883) # 1883 포트로 mosquitto에 접속
+client.loop_start() # 메시지 루프를 실행하는 스레드 생성
 try:
-    broker_ip = "localhost"
-    
-	client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-	client.connect(broker_ip, 1883) # 1883 포트로 mosquitto에 접속
-	client.loop_start() # 메시지 루프를 실행하는 스레드 생성
-
 	# 카메라 객체를 생성하고 촬영한 사진 크기를 640x480으로 설정
 	camera = cv2.VideoCapture(0, cv2.CAP_V4L)
 	camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -66,10 +63,11 @@ try:
 			led_on_off(ledred, 1) # 모든 LED 켜기
 			led_on_off(ledblue, 1)
 				# 버퍼에 저장된 모든 프레임을 버리고 새 프레임 읽기
-		for i in range(buffer_size+1): 
-			ret, frame = camera.read()
-			im_bytes = cv2.imencode('.jpg', frame)[1].tobytes() # 바이트 배열로 저장
-			client.publish("jpeg", im_bytes, qos = 0) # 이미지 전송
+			for i in range(buffer_size+1): 
+				ret, frame = camera.read()
+				im_bytes = cv2.imencode('.jpg', frame)[1].tobytes() # 바이트 배열로 저장
+				client.publish("jpeg", im_bytes, qos = 0) # 이미지 전송
+				print("물체가 식별되었습니다. 이미지를 전송합니다." % distance)
 		elif distance < 20 : # 물체와의 거리가 10~20cm 이내이면
 			led_on_off(ledred, 1) # 빨간 LED 키기
 			led_on_off(ledblue, 0)
