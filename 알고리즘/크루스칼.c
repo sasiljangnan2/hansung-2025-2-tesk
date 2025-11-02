@@ -16,17 +16,19 @@ int compare(const void* a, const void* b) {
 	return edge1->weight - edge2->weight;
 }
 
-typedef struct Graph {
+typedef struct Kruskal_graph {
 	int n; // 간선 수
 	struct Edge edges[2 * MAX_VERTICES];
-} Graph;
-void set_init() {
+} Kruskal_graph;
+void set_init() //초기화 
+{
 	for ( int i = 0; i < MAX_VERTICES; i++) {
 		parent[i] = -1;
 	}
 }
 
-void graph_init(Graph* g) {
+void graph_init(Kruskal_graph* g)  
+{
 	g->n = 0;
 	for (int i = 0; i < 2 * MAX_VERTICES; i++) {
 		g->edges[i].start = 0;
@@ -34,7 +36,8 @@ void graph_init(Graph* g) {
 		g->edges[i].weight = INF;
 	}
 }
-void insert_edge(Graph* g, int s, int e, int w) {
+void insert_edge(Kruskal_graph* g, int s, int e, int w) 
+{
 	g->edges[g->n].start = s;
 	g->edges[g->n].end = e;
 	g->edges[g->n].weight = w;
@@ -52,7 +55,7 @@ void set_union(int u, int v) {
 		parent[root2] = root1;
 	}
 }
-void kruskal(Graph* g, int n)
+void kruskal(Kruskal_graph* g, int n)
 {
 	int edge_accepted = 0;
 	int uset, vset;
@@ -75,8 +78,8 @@ void kruskal(Graph* g, int n)
 }
 int main(void)
 {
-	Graph* g;
-	g = (Graph*)malloc(sizeof(Graph));
+	Kruskal_graph* g;
+	g = (Kruskal_graph*)malloc(sizeof(Kruskal_graph));
 
 	int v = 7;
 	set_init();
