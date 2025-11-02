@@ -1,7 +1,26 @@
 import time
 import RPi.GPIO as GPIO
+import io
+import cv2
+import paho.mqtt.client as mqtt
+
 
 try:
+    broker_ip = "localhost"
+    
+	client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+	client.connect(broker_ip, 1883) # 1883 포트로 mosquitto에 접속
+	client.loop_start() # 메시지 루프를 실행하는 스레드 생성
+
+	# 카메라 객체를 생성하고 촬영한 사진 크기를 640x480으로 설정
+	camera = cv2.VideoCapture(0, cv2.CAP_V4L)
+	camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+	camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+	# 프레임을 임시 저장할 버퍼 개수를 1로 설정
+	buffer_size = 1
+	camera.set(cv2.CAP_PROP_BUFFERSIZE, buffer_size)
+
 	# pin에 연결된 LED에 value(0/1) 값을 출력하여 LED를 켜거나 끄는 함수
 	def led_on_off(pin, value):
 		GPIO.output(pin, value)
@@ -35,7 +54,8 @@ try:
 
 	ledred = 6 # GPIO6 핀
 	GPIO.setup(ledred, GPIO.OUT) # GPIO6 핀을 출력으로 지정
-	ledblue = 7
+	ledblue = 5 # GPIO5 핀
+	GPIO.setup(ledblue, GPIO.OUT) # GPIO5 핀을 출력으로 지정
 	print("LED를 지켜보세요.")
 	
 	while True :
@@ -45,6 +65,11 @@ try:
 		if distance < 10 : # 물체와의 거리가 10cm 이내이면
 			led_on_off(ledred, 1) # 모든 LED 켜기
 			led_on_off(ledblue, 1)
+				# 버퍼에 저장된 모든 프레임을 버리고 새 프레임 읽기
+		for i in range(buffer_size+1): 
+			ret, frame = camera.read()
+			im_bytes = cv2.imencode('.jpg', frame)[1].tobytes() # 바이트 배열로 저장
+			client.publish("jpeg", im_bytes, qos = 0) # 이미지 전송
 		elif distance < 20 : # 물체와의 거리가 10~20cm 이내이면
 			led_on_off(ledred, 1) # 빨간 LED 키기
 			led_on_off(ledblue, 0)
