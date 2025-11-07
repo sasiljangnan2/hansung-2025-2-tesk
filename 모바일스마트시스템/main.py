@@ -67,7 +67,7 @@ try:
 				ret, frame = camera.read()
 				im_bytes = cv2.imencode('.jpg', frame)[1].tobytes() # 바이트 배열로 저장
 				client.publish("jpeg", im_bytes, qos = 0) # 이미지 전송
-				print("물체가 식별되었습니다. 이미지를 전송합니다." % distance)
+			print("물체가 식별되었습니다. 이미지를 전송합니다." % distance)
 		elif distance < 20 : # 물체와의 거리가 10~20cm 이내이면
 			led_on_off(ledred, 1) # 빨간 LED 키기
 			led_on_off(ledblue, 0)

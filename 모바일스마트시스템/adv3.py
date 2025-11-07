@@ -5,7 +5,6 @@ try:
 	# pin에 연결된 LED에 value(0/1) 값을 출력하여 LED를 켜거나 끄는 함수
 	def led_on_off(pin, value):
 		GPIO.output(pin, value)
-
 	GPIO.setmode(GPIO.BCM) # BCM 모드로 작동
 	GPIO.setwarnings(False) # 경고글이 출력되지 않게 설정
 
