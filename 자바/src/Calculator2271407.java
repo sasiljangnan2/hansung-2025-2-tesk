@@ -1,7 +1,6 @@
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
-import java.lang.String;
+import javax.swing.*;
 public class Calculator2271407 extends JFrame{
     // 값 출력할 라벨들 
     private JLabel lax = new JLabel("0");
