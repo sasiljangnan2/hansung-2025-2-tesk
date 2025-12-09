@@ -9,7 +9,7 @@ def store():
     tel = request.args.get('tel') # 전화번호 받기
     file = open('./data/phonebook.txt', 'a') # 추가 모드로 열기
     data = "%s,%s\n" % (name, tel) # data에 name,tel 형식으로 저장
-    file.write(data) # 파일에 저장
+    file.write(data) # 파일에 저장  
     file.close()
     return render_template('index.html', msg='저장되었습니다.') # 저장 완료 메시지 출력
 @app.route('/search', methods=['GET', 'POST']) # 전화번호 검색
