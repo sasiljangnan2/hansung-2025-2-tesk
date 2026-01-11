@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_Vertices 4
+#define MAX_Vertices 50
 #define TRUE 1;
 #define FALSE 0;
 typedef struct graphnode
@@ -31,9 +31,9 @@ void insertvertex(graphtype* g, int v)
 	g->n++;
 	return;
 }
-void insert_edge(graphtype *g, int u, int v)
+void insert_edge(graphtype* g, int u, int v)
 {
-	if(u >= g->n || v >= g->n)
+	if (u >= g->n || v >= g->n)
 	{
 		printf("그래프에 없는 정점입니다.");
 		return;
@@ -63,13 +63,15 @@ void print_adj_list(graphtype* g)
 }
 
 int visited[MAX_Vertices];
+int parent[MAX_Vertices];
 void dfs_list(graphtype* g, int v)
 {
 	graphnode* w;
 	visited[v] = TRUE;
 	printf("정점 %d 방문\n", v);
-	for (w = g->adj_list[v]; w; w->link)
+	for (w = g->adj_list[v]; w; w = w->link)
 	{
+		parent[w->vertex] = v;
 		if (!visited[w->vertex]) dfs_list(g, w->vertex);
 	}
 }
